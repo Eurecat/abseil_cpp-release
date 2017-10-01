@@ -1,0 +1,11 @@
+ros-lunar-abseil-cpp (0.1.1-0xenial) xenial; urgency=high
+
+  * Merge branch 'master' of https://github.com/Eurecat/abseil-cpp
+  * test removed
+  * Update README.md
+  * Initial Commit
+  * Contributors: Abseil Team, Ben Cox, Davide Faconti, Derek Mauro, misterg
+
+ -- dfaconti <davide.faconti@gmail.com>  Sat, 30 Sep 2017 22:00:00 -0000
+
+
