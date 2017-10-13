@@ -7,16 +7,6 @@ add_compile_options(-std=c++11)
 find_package(catkin REQUIRED)
 
 
-################################################
-## Declare ROS messages, services and actions ##
-################################################
-
-
-################################################
-## Declare ROS dynamic reconfigure parameters ##
-################################################
-
-
 ###################################
 ## catkin specific configuration ##
 ###################################
@@ -24,8 +14,6 @@ find_package(catkin REQUIRED)
 catkin_package(
    INCLUDE_DIRS include
    LIBRARIES abseil_cpp
-#  CATKIN_DEPENDS other_catkin_pkg
-#  DEPENDS system_lib
 )
 
 ###########
@@ -60,8 +48,8 @@ install(TARGETS ${PROJECT_NAME}
  )
 
 ## Mark cpp header files for installation
-install(DIRECTORY include/absl
-    DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+install(DIRECTORY include/
+    DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION}
     FILES_MATCHING PATTERN "*.h"
     PATTERN ".svn" EXCLUDE
  )
