@@ -1,3 +1,26 @@
+## abseil_cpp (lunar) - 0.1.4-0
+
+The packages in the `abseil_cpp` repository were released into the `lunar` distro by running `/usr/bin/bloom-release --track lunar --rosdistro lunar abseil_cpp` on `Fri, 13 Oct 2017 08:06:41 -0000`
+
+The `abseil_cpp` package was released.
+
+Version of package(s) in repository `abseil_cpp`:
+
+- upstream repository: https://github.com/Eurecat/abseil-cpp.git
+- release repository: https://github.com/Eurecat/abseil_cpp-release.git
+- rosdistro version: `0.1.1-0`
+- old version: `0.1.1-0`
+- new version: `0.1.4-0`
+
+Versions of tools used:
+
+- bloom version: `0.5.26`
+- catkin_pkg version: `0.3.6`
+- rosdep version: `0.11.8`
+- rosdistro version: `0.6.2`
+- vcstools version: `0.1.39`
+
+
 ## abseil_cpp (indigo) - 0.1.4-0
 
 The packages in the `abseil_cpp` repository were released into the `indigo` distro by running `/usr/bin/bloom-release --track indigo --rosdistro indigo abseil_cpp` on `Fri, 13 Oct 2017 08:01:42 -0000`
