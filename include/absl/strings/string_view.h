@@ -176,7 +176,7 @@ class string_view {
   constexpr string_view(const char* str)  // NOLINT(runtime/explicit)
       : ptr_(str), length_(StrLenInternal(str)) {}
 
-  // Implicit consructor of a `string_view` from a `const char*` and length
+  // Implicit constructor of a `string_view` from a `const char*` and length.
   constexpr string_view(const char* data, size_type len)
       : ptr_(data), length_(CheckLengthInternal(len)) {}
 
@@ -295,9 +295,8 @@ class string_view {
 
   // string_view::remove_prefix()
   //
-  // Removes the first `n` characters from the `string_view`, returning a
-  // pointer to the new first character. Note that the underlying std::string is not
-  // changed, only the view.
+  // Removes the first `n` characters from the `string_view`. Note that the
+  // underlying std::string is not changed, only the view.
   void remove_prefix(size_type n) {
     assert(n <= length_);
     ptr_ += n;
@@ -324,7 +323,7 @@ class string_view {
 
   // Explicit conversion operators
 
-  // Supports conversion to both `std::basic_string` where available.
+  // Converts to `std::basic_string`.
   template <typename A>
   explicit operator std::basic_string<char, traits_type, A>() const {
     if (!data()) return {};
@@ -482,21 +481,21 @@ class string_view {
   static constexpr size_type kMaxSize =
       std::numeric_limits<size_type>::max() / 2 + 1;
 
-  static constexpr size_type StrLenInternal(const char* str) {
-    return str ?
-// check whether __builtin_strlen is provided by the compiler.
-// GCC doesn't have __has_builtin()
-// (https://gcc.gnu.org/bugzilla/show_bug.cgi?id=66970),
-// but has __builtin_strlen according to
-// https://gcc.gnu.org/onlinedocs/gcc-4.7.0/gcc/Other-Builtins.html.
+  // check whether __builtin_strlen is provided by the compiler.
+  // GCC doesn't have __has_builtin()
+  // (https://gcc.gnu.org/bugzilla/show_bug.cgi?id=66970),
+  // but has __builtin_strlen according to
+  // https://gcc.gnu.org/onlinedocs/gcc-4.7.0/gcc/Other-Builtins.html.
 #if ABSL_HAVE_BUILTIN(__builtin_strlen) || \
     (defined(__GNUC__) && !defined(__clang__))
-               __builtin_strlen(str)
-#else
-               strlen(str)
-#endif
-               : 0;
+  static constexpr size_type StrLenInternal(const char* str) {
+    return str ? __builtin_strlen(str) : 0;
   }
+#else
+  static constexpr size_type StrLenInternal(const char* str) {
+    return str ? strlen(str) : 0;
+  }
+#endif
 
   static constexpr size_type CheckLengthInternal(size_type len) {
     return ABSL_ASSERT(len <= kMaxSize), len;
