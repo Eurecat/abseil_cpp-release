@@ -12,7 +12,7 @@ find_package(catkin REQUIRED)
 ###################################
 
 catkin_package(
-   INCLUDE_DIRS include
+   INCLUDE_DIRS ./ cctz/include
    LIBRARIES abseil_cpp
 )
 
@@ -23,15 +23,47 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
- include
+ ./
+ cctz/include
  ${catkin_INCLUDE_DIRS}
 )
 
 file(GLOB_RECURSE source_list "*.cc" )
+file(GLOB_RECURSE test_list "*test*.cc" )
+
+list(REMOVE_ITEM source_list ${test_list})
+list(REMOVE_ITEM source_list ${CMAKE_CURRENT_SOURCE_DIR}/absl/synchronization/internal/mutex_nonprod.cc )
+list(REMOVE_ITEM source_list ${CMAKE_CURRENT_SOURCE_DIR}/cctz/src/benchmarks.cc )
+list(REMOVE_ITEM source_list ${CMAKE_CURRENT_SOURCE_DIR}/cctz/src/time_tool.cc )
 
 ## Declare a C++ library
 add_library(${PROJECT_NAME}  ${source_list} )
 
+find_program(RSYNC rsync)
+if(NOT RSYNC)
+    message(SEND_ERROR "Cannot find rsync.")
+  endif(NOT RSYNC)
+
+# Also copies headers to devel space.
+add_custom_command(
+  TARGET ${PROJECT_NAME}
+  POST_BUILD
+  COMMAND
+    ${CMAKE_COMMAND} -E
+      make_directory ${CATKIN_DEVEL_PREFIX}/${CATKIN_GLOBAL_INCLUDE_DESTINATION}/absl
+  COMMAND
+    ${RSYNC}
+      --prune-empty-dirs --archive
+      --include="*/" --include="*.h" --exclude="*"
+      ${CMAKE_CURRENT_SOURCE_DIR}/absl/
+      ${CATKIN_DEVEL_PREFIX}/${CATKIN_GLOBAL_INCLUDE_DESTINATION}/absl/
+  COMMAND
+    ${RSYNC}
+      --prune-empty-dirs --archive
+      --include="*/" --include="*.h" --exclude="*"
+      ${CMAKE_CURRENT_SOURCE_DIR}/cctz/include/
+      ${CATKIN_DEVEL_PREFIX}/${CATKIN_GLOBAL_INCLUDE_DESTINATION}/
+)
 
 #############
 ## Install ##
@@ -48,9 +80,14 @@ install(TARGETS ${PROJECT_NAME}
  )
 
 ## Mark cpp header files for installation
-install(DIRECTORY include/
-    DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION}
+install(DIRECTORY absl/
+    DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION}/absl
     FILES_MATCHING PATTERN "*.h"
     PATTERN ".svn" EXCLUDE
  )
 
+install(DIRECTORY cctz/include/
+    DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION}
+    FILES_MATCHING PATTERN "*.h"
+    PATTERN ".svn" EXCLUDE
+ )
