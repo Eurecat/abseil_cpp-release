@@ -39,6 +39,31 @@ list(REMOVE_ITEM source_list ${CMAKE_CURRENT_SOURCE_DIR}/cctz/src/time_tool.cc )
 ## Declare a C++ library
 add_library(${PROJECT_NAME}  ${source_list} )
 
+find_program(RSYNC rsync)
+if(NOT RSYNC)
+    message(SEND_ERROR "Cannot find rsync.")
+  endif(NOT RSYNC)
+
+# Also copies headers to devel space.
+add_custom_command(
+  TARGET ${PROJECT_NAME}
+  POST_BUILD
+  COMMAND
+    ${CMAKE_COMMAND} -E
+      make_directory ${CATKIN_DEVEL_PREFIX}/${CATKIN_GLOBAL_INCLUDE_DESTINATION}/absl
+  COMMAND
+    ${RSYNC}
+      --prune-empty-dirs --archive
+      --include="*/" --include="*.h" --exclude="*"
+      ${CMAKE_CURRENT_SOURCE_DIR}/absl/
+      ${CATKIN_DEVEL_PREFIX}/${CATKIN_GLOBAL_INCLUDE_DESTINATION}/absl/
+  COMMAND
+    ${RSYNC}
+      --prune-empty-dirs --archive
+      --include="*/" --include="*.h" --exclude="*"
+      ${CMAKE_CURRENT_SOURCE_DIR}/cctz/include/
+      ${CATKIN_DEVEL_PREFIX}/${CATKIN_GLOBAL_INCLUDE_DESTINATION}/
+)
 
 #############
 ## Install ##
