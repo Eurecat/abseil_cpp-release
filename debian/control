@@ -1,0 +1,12 @@
+Source: ros-melodic-abseil-cpp
+Section: misc
+Priority: extra
+Maintainer: dfaconti <davide.faconti@gmail.com>
+Build-Depends: debhelper (>= 9.0.0), ros-melodic-catkin, rsync
+Homepage: 
+Standards-Version: 3.9.2
+
+Package: ros-melodic-abseil-cpp
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, 
+Description: The abseil_cpp package
