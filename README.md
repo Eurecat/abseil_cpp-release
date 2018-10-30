@@ -1,3 +1,26 @@
+## abseil_cpp (kinetic) - 0.3.0-0
+
+The packages in the `abseil_cpp` repository were released into the `kinetic` distro by running `/usr/bin/bloom-release abseil_cpp --track kinetic --rosdistro kinetic` on `Tue, 30 Oct 2018 13:16:04 -0000`
+
+The `abseil_cpp` package was released.
+
+Version of package(s) in repository `abseil_cpp`:
+
+- upstream repository: https://github.com/Eurecat/abseil-cpp.git
+- release repository: https://github.com/Eurecat/abseil_cpp-release.git
+- rosdistro version: `0.2.3-0`
+- old version: `0.2.3-0`
+- new version: `0.3.0-0`
+
+Versions of tools used:
+
+- bloom version: `0.6.7`
+- catkin_pkg version: `0.4.8`
+- rosdep version: `0.12.2`
+- rosdistro version: `0.6.9`
+- vcstools version: `0.1.40`
+
+
 ## abseil_cpp (melodic) - 0.2.3-1
 
 The packages in the `abseil_cpp` repository were released into the `melodic` distro by running `/usr/bin/bloom-release --rosdistro melodic --track melodic abseil_cpp` on `Thu, 19 Jul 2018 12:21:11 -0000`
