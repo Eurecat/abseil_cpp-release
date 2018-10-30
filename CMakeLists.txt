@@ -1,43 +1,41 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(abseil_cpp)
 
-## Compile as C++11, supported in ROS Kinetic and newer
-add_compile_options(-std=c++11)
+set(CMAKE_CXX_FLAGS "-std=c++11  ${CMAKE_CXX_FLAGS}")
 
 find_package(catkin REQUIRED)
 
-
-###################################
-## catkin specific configuration ##
-###################################
+set( ABSL_PUBLIC_LIBRARIES
+    absl_bad_any_cast
+    absl_bad_optional_access
+    absl_base
+    absl_container
+    absl_debugging
+    absl_dynamic_annotations
+    absl_examine_stack
+    absl_failure_signal_handler
+    absl_hash
+    absl_int128
+    absl_leak_check
+    absl_meta
+    absl_optional
+    absl_strings
+    absl_stack_consumption
+    absl_stacktrace
+    absl_synchronization
+    absl_symbolize
+    absl_time
+    absl_variant
+    absl_utility
+)
 
 catkin_package(
-   INCLUDE_DIRS ./ cctz/include
-   LIBRARIES abseil_cpp
+   INCLUDE_DIRS ./abseil_cpp
+   LIBRARIES ${ABSL_PUBLIC_LIBRARIES}
 )
 
-###########
-## Build ##
-###########
+add_subdirectory(abseil_cpp)
 
-## Specify additional locations of header files
-## Your package locations should be listed before other locations
-include_directories(
- ./
- cctz/include
- ${catkin_INCLUDE_DIRS}
-)
-
-file(GLOB_RECURSE source_list "*.cc" )
-file(GLOB_RECURSE test_list "*test*.cc" )
-
-list(REMOVE_ITEM source_list ${test_list})
-list(REMOVE_ITEM source_list ${CMAKE_CURRENT_SOURCE_DIR}/absl/synchronization/internal/mutex_nonprod.cc )
-list(REMOVE_ITEM source_list ${CMAKE_CURRENT_SOURCE_DIR}/cctz/src/benchmarks.cc )
-list(REMOVE_ITEM source_list ${CMAKE_CURRENT_SOURCE_DIR}/cctz/src/time_tool.cc )
-
-## Declare a C++ library
-add_library(${PROJECT_NAME}  ${source_list} )
 
 #############
 ## Install ##
@@ -46,27 +44,17 @@ add_library(${PROJECT_NAME}  ${source_list} )
 # all install targets should use catkin DESTINATION variables
 # See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html
 
-## Mark executables and/or libraries for installation
-install(TARGETS ${PROJECT_NAME}
-   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
- )
 
 ## Mark cpp header files for installation
-install(DIRECTORY absl/
+install(DIRECTORY ./abseil_cpp/absl/
     DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION}/absl
     FILES_MATCHING PATTERN "*.h"
     PATTERN ".svn" EXCLUDE
  )
 
-install(DIRECTORY absl/
+install(DIRECTORY ./abseil_cpp/absl/
     DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION}/absl
     FILES_MATCHING PATTERN "*.inc"
  )
 
-install(DIRECTORY cctz/include/
-    DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION}
-    FILES_MATCHING PATTERN "*.h"
-    PATTERN ".svn" EXCLUDE
- )
+
