@@ -2,6 +2,19 @@
 Changelog for package abseil_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.4.0 (2019-05-28)
+------------------
+* updated to version 2019-05-28
+* ensure that -fPIC is set
+* fixes
+* Contributors: Alexander Rössler, Davide Faconti
+
+0.3.0 (2018-10-30)
+------------------
+* typo fixed
+* updated to 2018_10_30
+* Contributors: Davide Faconti
+
 0.2.3 (2017-11-15)
 ------------------
 * Fix issue `#1 <https://github.com/Eurecat/abseil-cpp/issues/1>`_
