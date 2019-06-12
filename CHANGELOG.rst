@@ -2,6 +2,11 @@
 Changelog for package abseil_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+0.4.1 (2019-06-12)
+------------------
+* should fix installation error
+* Contributors: Davide Faconti
+
 0.4.0 (2019-05-28)
 ------------------
 * updated to version 2019-05-28
